@@ -137,8 +137,26 @@ globals:
 #  pin: GPIO4
 #  carrier_duty_percent: 50%
 
-# Uart logging on/off switch
 switch:
+  - platform: template
+    name: "light Disabled"
+    id: light_disabled
+    icon: mdi:toggle-switch
+    disabled_by_default: True
+    entity_category: diagnostic
+    lambda: |-
+      return id(led_disabled);
+    turn_on_action:
+      - logger.log: "Manual switch ON → led_disabled = true"
+      - globals.set:
+          id: led_disabled
+          value: 'true'
+    turn_off_action:
+      - logger.log: "Manual switch OFF → led_disabled = false"
+      - globals.set:
+          id: led_disabled
+          value: 'false'
+# Uart logging on/off switch
   - platform: template
     name: UART Logging
     id: uart_debug_switch
