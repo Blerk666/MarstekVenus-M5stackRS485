@@ -47,13 +47,14 @@ logger:
 api:
   reboot_timeout: 0s
 #  encryption:
-#    key: !secret marstek_m1_api_encryption_key
+#    key: !secret api_key
 
 ## Enable OTA updates
 ota:
   - platform: esphome
+  #  password: !secret ota_password
   - platform: web_server
-#  password: !secret marstek_m1_ota_password
+
 
 wifi:
   ssid: !secret wifi_ssid
@@ -97,6 +98,10 @@ web_server:
     - id: Diagnostic
       name: "Diagnostic"
       sorting_weight: -10
+# Uncommand to secure the webserver.
+#  auth:
+#     username: !secret web_server_username
+#     password: !secret web_server_password
 
 ## Configure i2c (grove port on Atom S3)
 i2c:
